@@ -26,6 +26,6 @@ class TestHelloPage:
     def test_unsupported_browser(self, mozwebqa):
         hello_page = HelloPage(mozwebqa)
         hello_page.go_to_page()
-        Assert.equal('Incompatible Browser\nThe audio and video components of Firefox Hello are powered by WebRTC.\nPlease try this link in a WebRTC-enabled browser, such as Firefox.',
+        Assert.equal('Oops!\nFirefox Hello only works in browsers that support WebRTC\nDownload Firefox to make free audio and video calls!\nGet Firefox',
                      hello_page.unsupported_browser_message_text)
         Assert.equal('https://www.mozilla.org/firefox/', hello_page.unsupported_browser_firefox_link_href)
