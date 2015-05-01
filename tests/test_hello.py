@@ -28,4 +28,4 @@ class TestHelloPage:
         hello_page.go_to_page()
         Assert.equal('Oops!\nFirefox Hello only works in browsers that support WebRTC\nDownload Firefox to make free audio and video calls!\nGet Firefox',
                      hello_page.unsupported_browser_message_text)
-        Assert.equal('https://www.mozilla.org/firefox/', hello_page.unsupported_browser_firefox_link_href)
+        Assert.contains('https://www.mozilla.org/firefox/', hello_page.unsupported_browser_firefox_link_href)
