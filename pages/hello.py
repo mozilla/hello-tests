@@ -23,7 +23,7 @@ class HelloPage(Page):
     _unsupported_browser_firefox_link_locator = (By.CSS_SELECTOR, '#main a')
 
     def go_to_page(self):
-        self.url = '%s/#call/%s' % (self.base_url, hash(datetime.datetime.now()))
+        self.url = '%s/c/%s' % (self.base_url, hash(datetime.datetime.now()))
         self.selenium.get(self.url)
         WebDriverWait(self.selenium, self.timeout).until(EC.visibility_of_element_located(self._page_content_locator))
 
