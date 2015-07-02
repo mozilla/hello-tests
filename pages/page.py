@@ -11,7 +11,6 @@ import re
 import time
 
 import requests
-from unittestzero import Assert
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import ElementNotVisibleException
@@ -35,9 +34,7 @@ class Page(object):
     def is_the_current_page(self):
         if self._page_title:
             page_title = self.page_title
-            Assert.equal(page_title, self._page_title,
-                         "Expected page title: %s. Actual page title: %s" %
-                         (self._page_title, page_title))
+            assert page_title == self._page_title
 
     @property
     def url_current_page(self):
