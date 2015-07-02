@@ -2,6 +2,4 @@
 ## on Mozilla WebQA projects
 
 pytest-mozwebqa
-PyYAML==3.10
 selenium
-UnittestZero
