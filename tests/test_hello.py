@@ -15,11 +15,11 @@ class TestHelloPage:
         hello_page = HelloPage(mozwebqa)
         hello_page.go_to_page()
         assert hello_page.is_header_title_visible
-        assert hello_page.is_start_call_button_visible
+        assert hello_page.is_invalid_conversation_visible
         assert hello_page.is_footer_logo_visible
         assert 'Firefox Hello' == hello_page.header_title_text
-        assert 'Start' == hello_page.start_call_button_text
-        assert hello_page.current_url_text == hello_page.actual_page_url
+        assert 'Sorry, you cannot join this conversation. The link may be ' \
+               'expired or invalid.' == hello_page.invalid_conversation_text
 
     @pytest.mark.nondestructive
     def test_unsupported_browser(self, mozwebqa):
