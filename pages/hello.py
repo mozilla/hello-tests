@@ -14,16 +14,15 @@ from pages.page import Page
 
 class HelloPage(Page):
 
-    _current_url_locator = (By.CSS_SELECTOR, '.call-url')
-    _start_call_button_locator = (By.CSS_SELECTOR, 'button.btn-accept')
+    _failed_room_text_locator = (By.CSS_SELECTOR, '.failed-room-message')
     _footer_logo_locator = (By.CSS_SELECTOR, '.footer-logo')
-    _header_title_locator = (By.CSS_SELECTOR, '.standalone-header-title')
+    _header_title_locator = (By.CSS_SELECTOR, '.room-conversation-wrapper header h1')
     _page_content_locator = (By.ID, 'main')
     _unsupported_browser_message_locator = (By.ID, 'main')
     _unsupported_browser_firefox_link_locator = (By.CSS_SELECTOR, '#main a')
 
     def go_to_page(self):
-        self.url = '%s/c/%s' % (self.base_url, hash(datetime.datetime.now()))
+        self.url = '%s/%s' % (self.base_url, hash(datetime.datetime.now()))
         self.selenium.get(self.url)
         WebDriverWait(self.selenium, self.timeout).until(EC.visibility_of_element_located(self._page_content_locator))
 
@@ -32,16 +31,12 @@ class HelloPage(Page):
         return self.url
 
     @property
-    def current_url_text(self):
-        return self.selenium.find_element(*self._current_url_locator).text
+    def is_invalid_conversation_visible(self):
+        return self.is_element_visible(*self._failed_room_text_locator)
 
     @property
-    def is_start_call_button_visible(self):
-        return self.is_element_visible(*self._start_call_button_locator)
-
-    @property
-    def start_call_button_text(self):
-        return self.selenium.find_element(*self._start_call_button_locator).text
+    def invalid_conversation_text(self):
+        return self.selenium.find_element(*self._failed_room_text_locator).text
 
     @property
     def is_header_title_visible(self):
