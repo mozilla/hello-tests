@@ -40,7 +40,8 @@ class HelloPage(Page):
 
     @property
     def is_hello_logo_visible(self):
-        return self.is_element_visible(*self._hello_logo_locator)
+        self.wait_for_element_visible(*self._hello_logo_locator)
+        return True
 
     @property
     def unsupported_browser_message_text(self):
