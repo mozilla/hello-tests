@@ -16,7 +16,7 @@ class TestHelloPage:
         hello_page.go_to_page()
         assert hello_page.is_header_title_visible
         assert hello_page.is_invalid_conversation_visible
-        assert hello_page.is_footer_logo_visible
+        assert hello_page.is_mozilla_logo_visible
         assert 'Firefox Hello' == hello_page.header_title_text
         assert 'Sorry, you cannot join this conversation. The link may be ' \
                'expired or invalid.' == hello_page.invalid_conversation_text
