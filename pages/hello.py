@@ -15,7 +15,7 @@ from pages.page import Page
 class HelloPage(Page):
 
     _failed_room_text_locator = (By.CSS_SELECTOR, '.failed-room-message')
-    _footer_logo_locator = (By.CSS_SELECTOR, '.footer-logo')
+    _mozilla_logo_locator = (By.CSS_SELECTOR, '.standalone-moz-logo')
     _header_title_locator = (By.CSS_SELECTOR, '.room-conversation-wrapper header h1')
     _page_content_locator = (By.ID, 'main')
     _unsupported_browser_message_locator = (By.ID, 'main')
@@ -56,5 +56,5 @@ class HelloPage(Page):
             *self._unsupported_browser_firefox_link_locator).get_attribute('href')
 
     @property
-    def is_footer_logo_visible(self):
-        return self.is_element_visible(*self._footer_logo_locator)
+    def is_mozilla_logo_visible(self):
+        return self.is_element_visible(*self._mozilla_logo_locator)
