@@ -14,7 +14,7 @@ class TestHelloPage:
     def test_supported_browser(self, mozwebqa):
         hello_page = HelloPage(mozwebqa)
         hello_page.go_to_page()
-        assert hello_page.is_header_title_visible
+        assert hello_page.is_hello_logo_visible
         assert hello_page.is_invalid_conversation_visible
         assert hello_page.is_mozilla_logo_visible
         assert 'Firefox Hello' == hello_page.header_title_text
