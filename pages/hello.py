@@ -16,7 +16,7 @@ class HelloPage(Page):
 
     _failed_room_text_locator = (By.CSS_SELECTOR, '.failed-room-message')
     _mozilla_logo_locator = (By.CSS_SELECTOR, '.standalone-moz-logo')
-    _hello_logo_locator= (By.CSS_SELECTOR, '.hello-logo')
+    _hello_logo_locator = (By.CSS_SELECTOR, '.hello-logo')
     _page_content_locator = (By.ID, 'main')
     _unsupported_browser_message_locator = (By.ID, 'main')
     _unsupported_browser_firefox_link_locator = (By.CSS_SELECTOR, '#main a')
