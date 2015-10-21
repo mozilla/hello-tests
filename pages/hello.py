@@ -16,7 +16,7 @@ class HelloPage(Page):
 
     _failed_room_text_locator = (By.CSS_SELECTOR, '.failed-room-message')
     _mozilla_logo_locator = (By.CSS_SELECTOR, '.standalone-moz-logo')
-    _header_title_locator = (By.CSS_SELECTOR, '.room-conversation-wrapper header h1')
+    _hello_logo_locator = (By.CSS_SELECTOR, '.hello-logo')
     _page_content_locator = (By.ID, 'main')
     _unsupported_browser_message_locator = (By.ID, 'main')
     _unsupported_browser_firefox_link_locator = (By.CSS_SELECTOR, '#main a')
@@ -39,12 +39,8 @@ class HelloPage(Page):
         return self.selenium.find_element(*self._failed_room_text_locator).text
 
     @property
-    def is_header_title_visible(self):
-        return self.is_element_visible(*self._header_title_locator)
-
-    @property
-    def header_title_text(self):
-        return self.selenium.find_element(*self._header_title_locator).text
+    def is_hello_logo_visible(self):
+        return self.is_element_visible(*self._hello_logo_locator)
 
     @property
     def unsupported_browser_message_text(self):
