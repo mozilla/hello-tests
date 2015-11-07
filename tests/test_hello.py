@@ -3,26 +3,24 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 import pytest
+
 from pages.hello import HelloPage
+from pages.issue import IssuePage
 
 
-class TestHelloPage:
+@pytest.mark.nondestructive
+def test_supported_browser(base_url, selenium):
+    page = HelloPage(base_url, selenium).open()
+    assert page.is_hello_logo_visible
+    assert page.is_mozilla_logo_visible
+    assert 'Sorry, you cannot join this conversation. ' \
+           'The link may be expired or invalid.' == page.failed_room_message
 
-    @pytest.mark.nondestructive
-    def test_supported_browser(self, mozwebqa):
-        hello_page = HelloPage(mozwebqa)
-        hello_page.go_to_page()
-        assert hello_page.is_hello_logo_visible
-        assert hello_page.is_invalid_conversation_visible
-        assert hello_page.is_mozilla_logo_visible
-        assert 'Sorry, you cannot join this conversation. The link may be ' \
-               'expired or invalid.' == hello_page.invalid_conversation_text
 
-    @pytest.mark.nondestructive
-    def test_unsupported_browser(self, mozwebqa):
-        hello_page = HelloPage(mozwebqa)
-        hello_page.go_to_page()
-        assert 'Oops!\nFirefox Hello only works in browsers that support WebRTC\n' \
-               'Download Firefox to make free audio and video calls!\nGet Firefox' == \
-               hello_page.unsupported_browser_message_text
-        assert 'https://www.mozilla.org/firefox/' in hello_page.unsupported_browser_firefox_link_href
+@pytest.mark.nondestructive
+def test_unsupported_browser(base_url, selenium):
+    page = IssuePage(base_url, selenium).open()
+    assert 'Oops!' == page.heading
+    assert 'Firefox Hello only works in browsers that support WebRTC' == page.issue
+    assert 'Download Firefox to make free audio and video calls!' == page.download_firefox_prompt
+    assert 'https://www.mozilla.org/firefox/' in page.download_firefox_location

@@ -2,55 +2,39 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
-import datetime
+import uuid
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.ui import WebDriverWait as Wait
 
 from pages.page import Page
 
 
 class HelloPage(Page):
 
-    _failed_room_text_locator = (By.CSS_SELECTOR, '.failed-room-message')
-    _mozilla_logo_locator = (By.CSS_SELECTOR, '.standalone-moz-logo')
     _hello_logo_locator = (By.CSS_SELECTOR, '.hello-logo')
-    _page_content_locator = (By.ID, 'main')
-    _unsupported_browser_message_locator = (By.ID, 'main')
-    _unsupported_browser_firefox_link_locator = (By.CSS_SELECTOR, '#main a')
-
-    def go_to_page(self):
-        self.url = '%s/%s' % (self.base_url, hash(datetime.datetime.now()))
-        self.selenium.get(self.url)
-        WebDriverWait(self.selenium, self.timeout).until(EC.visibility_of_element_located(self._page_content_locator))
+    _failed_room_message_locator = (By.CSS_SELECTOR, '.failed-room-message')
+    _mozilla_logo_locator = (By.CSS_SELECTOR, '.standalone-moz-logo')
 
     @property
-    def actual_page_url(self):
-        return self.url
+    def _url(self):
+        return '{base_url}/{id}'.format(base_url=self.base_url, id=uuid.uuid4())
+
+    def wait_for_page_to_load(self):
+        body = self.selenium.find_element(By.TAG_NAME, 'body')
+        Wait(self.selenium, self.timeout).until(
+            lambda s: 'is-standalone-room' in body.get_attribute('class'))
+        return self
 
     @property
-    def is_invalid_conversation_visible(self):
-        return self.is_element_visible(*self._failed_room_text_locator)
-
-    @property
-    def invalid_conversation_text(self):
-        return self.selenium.find_element(*self._failed_room_text_locator).text
+    def failed_room_message(self):
+        return self.selenium.find_element(
+            *self._failed_room_message_locator).text
 
     @property
     def is_hello_logo_visible(self):
-        self.wait_for_element_visible(*self._hello_logo_locator)
-        return True
-
-    @property
-    def unsupported_browser_message_text(self):
-        return self.selenium.find_element(*self._unsupported_browser_message_locator).text
-
-    @property
-    def unsupported_browser_firefox_link_href(self):
-        return self.selenium.find_element(
-            *self._unsupported_browser_firefox_link_locator).get_attribute('href')
+        return self.is_element_visible(self._hello_logo_locator)
 
     @property
     def is_mozilla_logo_visible(self):
-        return self.is_element_visible(*self._mozilla_logo_locator)
+        return self.is_element_visible(self._mozilla_logo_locator)
