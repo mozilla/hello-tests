@@ -14,7 +14,6 @@ class HelloPage(Page):
 
     _hello_logo_locator = (By.CSS_SELECTOR, '.hello-logo')
     _failed_room_message_locator = (By.CSS_SELECTOR, '.failed-room-message')
-    _mozilla_logo_locator = (By.CSS_SELECTOR, '.standalone-moz-logo')
 
     @property
     def _url(self):
@@ -34,7 +33,3 @@ class HelloPage(Page):
     @property
     def is_hello_logo_visible(self):
         return self.is_element_visible(self._hello_logo_locator)
-
-    @property
-    def is_mozilla_logo_visible(self):
-        return self.is_element_visible(self._mozilla_logo_locator)

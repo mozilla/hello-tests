@@ -12,7 +12,6 @@ from pages.issue import IssuePage
 def test_supported_browser(base_url, selenium):
     page = HelloPage(base_url, selenium).open()
     assert page.is_hello_logo_visible
-    assert page.is_mozilla_logo_visible
     assert 'Sorry, you cannot join this conversation. ' \
            'The link may be expired or invalid.' == page.failed_room_message
 
