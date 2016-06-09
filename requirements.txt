@@ -1,3 +1,4 @@
+PyPOM
 pytest==2.9.2
 pytest-selenium
 pytest-xdist==1.14
