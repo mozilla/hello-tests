@@ -4,13 +4,13 @@
 
 import pytest
 
-from pages.hello import HelloPage
-from pages.issue import IssuePage
+from pages.hello import Hello
+from pages.issue import Issue
 
 
 @pytest.mark.nondestructive
 def test_supported_browser(base_url, selenium):
-    page = HelloPage(base_url, selenium).open()
+    page = Hello(selenium, base_url).open()
     assert page.is_hello_logo_visible
     assert 'Sorry, you cannot join this conversation. ' \
            'The link may be expired or invalid.' == page.failed_room_message
@@ -18,7 +18,7 @@ def test_supported_browser(base_url, selenium):
 
 @pytest.mark.nondestructive
 def test_unsupported_browser(base_url, selenium):
-    page = IssuePage(base_url, selenium).open()
+    page = Issue(selenium, base_url).open()
     assert 'Oops!' == page.heading
     assert 'Firefox Hello only works in browsers that support WebRTC' == page.issue
     assert 'Download Firefox to make free audio and video calls!' == page.download_firefox_prompt
