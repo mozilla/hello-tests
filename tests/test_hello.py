@@ -19,7 +19,6 @@ def test_supported_browser(base_url, selenium):
 @pytest.mark.nondestructive
 def test_unsupported_browser(base_url, selenium):
     page = Issue(selenium, base_url).open()
-    assert 'Oops!' == page.heading
-    assert 'Firefox Hello only works in browsers that support WebRTC' == page.issue
-    assert 'Download Firefox to make free audio and video calls!' == page.download_firefox_prompt
+    assert 'Hello is not supported by this browser.' == page.heading
+    assert 'Get Firefox and start sharing the Web! Learn more.' == page.download_firefox_prompt
     assert 'https://www.mozilla.org/firefox/' in page.download_firefox_location
